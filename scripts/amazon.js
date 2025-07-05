@@ -5,7 +5,7 @@ products.forEach((productObj) => {
         <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${productObj.img}">
+              src="${productObj.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
