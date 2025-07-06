@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart , removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js"; //singe dot means current folder
 
@@ -10,7 +10,7 @@ cart.forEach((cartItem) => {
     //input type radio selector is the bubble which fills, if some have the same name then you can only select one of them, but if two or more all have different names then you can select all of them, thats why we have to change the delivery option number in the name attribute in 
 
     cartSummaryHTML += `
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
             Delivery date: Tuesday, June 21
         </div>
@@ -33,7 +33,7 @@ cart.forEach((cartItem) => {
                 <span class="update-quantity-link link-primary">
                 Update
                 </span>
-                <span class="delete-quantity-link link-primary">
+                <span class="delete-quantity-link link-primary js-delete-link" data-product-id = "${matchingProduct.id}">
                 Delete
                 </span>
             </div>
@@ -90,3 +90,14 @@ cart.forEach((cartItem) => {
 
 document.querySelector('.js-orders-summary')
     .innerHTML = cartSummaryHTML;
+
+
+document.querySelectorAll('.js-delete-link')
+    .forEach((link) => {
+        link.addEventListener('click', () => {
+            const { productId } = link.dataset;
+            removeFromCart(productId);
+            const container = document.querySelector(`.js-cart-item-container-${productId}`);
+            container.remove(); //every element gotten using the dom has this method, it allows us to remove the div or something
+        });
+    });
