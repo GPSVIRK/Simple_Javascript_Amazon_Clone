@@ -1,6 +1,8 @@
-import { cart , removeFromCart } from "../data/cart.js";
+import { cart , removeFromCart , calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js"; //singe dot means current folder
+
+updateCartQuantity();
 
 let cartSummaryHTML = '';
 
@@ -86,7 +88,12 @@ cart.forEach((cartItem) => {
         </div>
     </div>
     `;
-})
+});
+
+function updateCartQuantity(){
+    document.querySelector('.js-cart-quantity')
+        .innerText = `${calculateCartQuantity()} items`;
+}
 
 document.querySelector('.js-orders-summary')
     .innerHTML = cartSummaryHTML;
@@ -99,5 +106,6 @@ document.querySelectorAll('.js-delete-link')
             removeFromCart(productId);
             const container = document.querySelector(`.js-cart-item-container-${productId}`);
             container.remove(); //every element gotten using the dom has this method, it allows us to remove the div or something
+            updateCartQuantity();
         });
     });

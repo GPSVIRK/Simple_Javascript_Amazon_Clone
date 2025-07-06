@@ -1,4 +1,4 @@
-import { cart, addToCart } from '../data/cart.js';
+import { cart, addToCart , calculateCartQuantity } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
@@ -65,8 +65,7 @@ document.querySelector('.js-products-grid')
 	.innerHTML = productsHTML;
 
 
-let isAddedTextAppear = false;
-let timeoutId;
+const addedButtonStateMap = new Map();
 
 function showAddedText(productId){
 
@@ -74,34 +73,35 @@ function showAddedText(productId){
 
 	addedElem.classList.add('added-text-appear');
 
-	if(!isAddedTextAppear){
+	const addedTextState = addedButtonStateMap.get(productId) || {
+		isAddedTextAppear: false,
+		timeoutId: null
+	}
 
-		timeoutId = setTimeout(() => {
+	if(!addedTextState.isAddedTextAppear){
+
+		addedTextState.timeoutId = setTimeout(() => {
 									addedElem.classList.remove('added-text-appear');
 									isAddedTextAppear = false;
 								}, 2000);
 
-		isAddedTextAppear = true;
+		addedTextState.isAddedTextAppear = true;
 	} else {
 
-		clearTimeout(timeoutId);
+		clearTimeout(addedTextState.timeoutId);
 
-		timeoutId = setTimeout(() => {
+		addedTextState.timeoutId = setTimeout(() => {
 									addedElem.classList.remove('added-text-appear');
 									isAddedTextAppear = false;
 								}, 2000);
 	}
+
+	addedButtonStateMap.set(productId, addedTextState);
 }
 
 function updateCartQuantity(){
-	let cartQuantity = 0;
-
-	cart.forEach((cartItem) => {
-		cartQuantity += cartItem.quantity;
-	});
-
 	document.querySelector('.js-cart-quantitiy')
-		.innerHTML = cartQuantity;
+		.innerHTML = calculateCartQuantity();
 }
 
 document.querySelectorAll('.js-add-to-cart-button')
