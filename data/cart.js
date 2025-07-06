@@ -47,3 +47,14 @@ export function calculateCartQuantity(){
 
 	return cartQuantity;
 }
+
+export function updateProductQuantity(productId, newQuantity){
+    for(let i=0 ; i<cart.length ; i++){
+        if(cart[i].productId === productId){
+            cart[i].quantity = newQuantity;
+            break;
+        }
+    }
+
+    saveToStorage();
+}
