@@ -658,7 +658,7 @@ export const products = [
     ]
   },
   {
-    id: "bc2847e9-5323-403f-b7cf-57fde044a955",
+    id: "adfb42eb-92bf-02af-8092-ac2fccaf996",
     image: "images/products/Backpack.jpg",
     name: "Backpack",
     rating: {
