@@ -17,5 +17,5 @@ export const deliveryOptions = [
 ];
 
 export function findDeliveryOption (deliveryOptionId){
-    return deliveryOptions.find((deliveryOption) => deliveryOption.id === deliveryOptionId);
+    return deliveryOptions.find((deliveryOption) => deliveryOption.id === deliveryOptionId) || deliveryOptions[0];
 }

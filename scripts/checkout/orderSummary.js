@@ -1,23 +1,22 @@
-import { cart , removeFromCart , calculateCartQuantity , updateProductQuantity , updateDeliveryOptionId } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { cart , removeFromCart , calculateCartQuantity , updateDeliveryOptionId } from "../../data/cart.js";
+import { findProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js"; //singe dot means current folder
 import { deliveryOptions , findDeliveryOption } from "../../data/deliverOptions.js";
 import { dayCalculator } from "../utils/dayCalculator.js";
 import { saveNewQuantity, changeEditingState } from "../utils/editingQuantityCheckout.js";
 
-updateCartQuantity();
-
-renderOrderSummary(); /*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
-												in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
-												2- the View, which takes the data and displays it on the page, i.e taking the data and putting it in the html
-												3- the Controller which is all the event listeners, and it makes the page interactive
-												these three elements interact in a loop, the controller updates the model and then causes the view to update and the controller to be interactive again*/
+/*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
+in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
+2- the View, which takes the data and displays it on the page, i.e taking the data and putting it in the html
+3- the Controller which is all the event listeners, and it makes the page interactive
+these three elements interact in a loop, the controller updates the model and then causes the view to update and the controller to be interactive again*/
 
 export function renderOrderSummary(){
+	updateCartQuantity();
 	let cartSummaryHTML = '';
 
 	cart.forEach((cartItem) => {
-		const matchingProduct = products.find((productObj) => {return productObj.id === cartItem.productId;});
+		const matchingProduct = findProduct(cartItem.productId);
 
 		//input type radio selector is the bubble which fills, if some have the same name then you can only select one of them, but if two or more all have different names then you can select all of them, thats why we have to change the delivery option number in the name attribute in 
 
