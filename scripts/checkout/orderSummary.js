@@ -1,9 +1,10 @@
 import { cart , removeFromCart , calculateCartQuantity , updateDeliveryOptionId } from "../../data/cart.js";
 import { findProduct } from "../../data/products.js";
-import { formatCurrency } from "../utils/money.js"; //singe dot means current folder
+import { formatCurrency } from "../utils/money.js"; 
 import { deliveryOptions , findDeliveryOption } from "../../data/deliverOptions.js";
 import { dayCalculator } from "../utils/dayCalculator.js";
 import { saveNewQuantity, changeEditingState } from "../utils/editingQuantityCheckout.js";
+import { renderPaymentSummary } from "./paymentSummary.js"; //singe dot means current folder
 
 /*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
 in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
@@ -81,6 +82,8 @@ export function renderOrderSummary(){
 				updateDeliveryOptionId(productId,deliveryOptionId);
 
 				renderOrderSummary();
+
+				renderPaymentSummary();
 			});
 		});
 
@@ -92,6 +95,8 @@ export function renderOrderSummary(){
 				const container = document.querySelector(`.js-cart-item-container-${productId}`);
 				container.remove(); //every element gotten using the dom has this method, it allows us to remove the div or something
 				updateCartQuantity();
+
+				renderPaymentSummary();
 			});
 		});
 
