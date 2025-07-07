@@ -83,6 +83,13 @@
       </div>
     </div>
 
+    <!--external libraries are loaded first, it is like importing from python
+    if you want to know about it and its features, look up dayjs documentation
+    to find them google something like 'javascript ___ library'
+    <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script> 
+    so, we dont want to use it like this cuz of naming conflicts, we use an ecmascript link (js and es are the same)
+    not every library has an esm version so we have to use script tags for them-->
+
     <script type="module" src="scripts/checkout.js"></script>
   </body>
 </html>
