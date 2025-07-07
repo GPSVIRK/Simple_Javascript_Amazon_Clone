@@ -92,8 +92,8 @@ export function renderOrderSummary(){
 			link.addEventListener('click', () => {
 				const { productId } = link.dataset;
 				removeFromCart(productId);
-				const container = document.querySelector(`.js-cart-item-container-${productId}`);
-				container.remove(); //every element gotten using the dom has this method, it allows us to remove the div or something
+				renderOrderSummary();
+				//container.remove();every element gotten using the dom has this method, it allows us to remove the div or something
 				updateCartQuantity();
 
 				renderPaymentSummary();
