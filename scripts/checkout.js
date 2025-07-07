@@ -106,7 +106,6 @@ function updateCartQuantity(){
 		.innerText = `${calculateCartQuantity()} items`;
 }
 
-
 document.querySelectorAll('.js-delete-link')
 	.forEach((link) => {
 		link.addEventListener('click', () => {
