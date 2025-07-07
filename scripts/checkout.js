@@ -121,21 +121,40 @@ document.querySelectorAll('.js-delete-link')
 document.querySelectorAll('.js-update-link')
 	.forEach((link) => {
 		link.addEventListener('click' , () =>{
+
 			const {productId} = link.dataset;
-			const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-			cartItemContainer.classList.add('is-editing-quantity');
+			changeEditingState(productId);
+			
 		});
 	});
 
-function saveNewQuantity(linkInput){
-	const { productId } = linkInput.dataset;
-	const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-	cartItemContainer.classList.remove('is-editing-quantity');
+document.querySelectorAll('.js-save-link')
+	.forEach((link) => {
+		link.addEventListener('click' , () => {
 
-	const newQuantityInput = document.querySelector(`.js-quantity-input-${productId}`);
-	const newQuantity = Number(newQuantityInput.value);
-	newQuantityInput.value = '';
+			const {productId} = link.dataset;
+			changeEditingState(productId);
+			saveNewQuantity(productId);
 
+		});
+	});
+
+document.querySelectorAll('.js-quantity-input')
+	.forEach((inputBox) => {
+		inputBox.addEventListener('keydown' , (keyDownEvent) => {
+
+			if(keyDownEvent.key === 'Enter'){
+				const {productId} = inputBox.dataset;
+				changeEditingState(productId);
+				saveNewQuantity(productId);
+			}
+
+		});
+	});
+
+function saveNewQuantity(productId){
+	const newQuantity = extractNewQuantity(productId);
+	
 	if(newQuantity <= 0 || newQuantity > 1000){
 		return;
 	}
@@ -148,18 +167,20 @@ function saveNewQuantity(linkInput){
 	updateCartQuantity();
 }
 
-document.querySelectorAll('.js-save-link')
-	.forEach((link) => {
-		link.addEventListener('click' , () => {
-			saveNewQuantity(link);
-		});
-	});
+function changeEditingState (productId){
+	const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
 
-document.querySelectorAll('.js-quantity-input')
-	.forEach((inputBox) => {
-		inputBox.addEventListener('keydown' , (keyDownEvent) => {
-			if(keyDownEvent.key === 'Enter'){
-				saveNewQuantity(inputBox);
-			}
-		});
-	});
+	if (cartItemContainer.classList.contains('is-editing-quantity')){
+		cartItemContainer.classList.remove('is-editing-quantity');
+	} else {
+		cartItemContainer.classList.add('is-editing-quantity');
+	}
+}
+
+function extractNewQuantity(productId){
+	const newQuantityInput = document.querySelector(`.js-quantity-input-${productId}`);
+	const newQuantity = Number(newQuantityInput.value);
+	newQuantityInput.value = '';
+
+	return newQuantity;
+}
