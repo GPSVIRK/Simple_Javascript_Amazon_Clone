@@ -1,10 +1,11 @@
-import { cart , removeFromCart , calculateCartQuantity , updateDeliveryOptionId } from "../../data/cart.js";
+import { cart , removeFromCart , updateDeliveryOptionId } from "../../data/cart.js";
 import { findProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js"; 
 import { deliveryOptions , findDeliveryOption } from "../../data/deliverOptions.js";
 import { dayCalculator } from "../utils/dayCalculator.js";
 import { saveNewQuantity, changeEditingState } from "../utils/editingQuantityCheckout.js";
 import { renderPaymentSummary } from "./paymentSummary.js"; //singe dot means current folder
+import { renderCheckOutHeader } from "./checkoutHeader.js";
 
 /*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
 in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
@@ -13,7 +14,6 @@ in MVC we split our code into 3 parts, the Model which saves and manages the dat
 these three elements interact in a loop, the controller updates the model and then causes the view to update and the controller to be interactive again*/
 
 export function renderOrderSummary(){
-	updateCartQuantity();
 	let cartSummaryHTML = '';
 
 	cart.forEach((cartItem) => {
@@ -94,7 +94,7 @@ export function renderOrderSummary(){
 				removeFromCart(productId);
 				renderOrderSummary();
 				//container.remove();every element gotten using the dom has this method, it allows us to remove the div or something
-				updateCartQuantity();
+				renderCheckOutHeader();
 
 				renderPaymentSummary();
 			});
@@ -117,7 +117,7 @@ export function renderOrderSummary(){
 				const {productId} = link.dataset;
 				changeEditingState(productId);
 				saveNewQuantity(productId);
-				updateCartQuantity();
+				renderCheckOutHeader();
 
 			});
 		});
@@ -130,18 +130,13 @@ export function renderOrderSummary(){
 					const {productId} = inputBox.dataset;
 					changeEditingState(productId);
 					saveNewQuantity(productId);
-					updateCartQuantity();
+					renderCheckOutHeader();
 				}
 
 			});
 		});
 
-} //since we have to regenerate all the html we also have to regenerate all the event listeners
-
-function updateCartQuantity(){
-	document.querySelector('.js-cart-quantity')
-		.innerText = `${calculateCartQuantity()} items`;
-}
+} //since we have to regenerate all the html we also have to regenerate all the event listener
 
 function deliveryOptionsHTML(matchingProduct, cartItem){
 	let html = '';
