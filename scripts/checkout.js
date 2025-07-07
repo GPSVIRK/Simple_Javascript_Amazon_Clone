@@ -3,7 +3,7 @@ import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js"; //singe dot means current folder
 import { deliveryOptions , findDeliveryOption } from "../data/deliverOptions.js";
 import { dayCalculator } from "./utils/dayCalculator.js";
-import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; //we used a default export, its for when you want to export only one thing, there is only one default export allowed, the normal version is called named export
+import { saveNewQuantity, changeEditingState } from "./utils/editingQuantityCheckout.js";
 
 updateCartQuantity();
 
@@ -113,6 +113,7 @@ function renderOrderSummary(){
 				const {productId} = link.dataset;
 				changeEditingState(productId);
 				saveNewQuantity(productId);
+				updateCartQuantity();
 
 			});
 		});
@@ -125,6 +126,7 @@ function renderOrderSummary(){
 					const {productId} = inputBox.dataset;
 					changeEditingState(productId);
 					saveNewQuantity(productId);
+					updateCartQuantity();
 				}
 
 			});
@@ -135,39 +137,6 @@ function renderOrderSummary(){
 function updateCartQuantity(){
 	document.querySelector('.js-cart-quantity')
 		.innerText = `${calculateCartQuantity()} items`;
-}
-
-function saveNewQuantity(productId){
-	const newQuantity = extractNewQuantity(productId);
-	
-	if(newQuantity <= 0 || newQuantity > 1000){
-		return;
-	}
-
-	document.querySelector(`.js-quantity-label-${productId}`)
-		.innerText = newQuantity;
-
-	updateProductQuantity(productId, newQuantity);
-
-	updateCartQuantity();
-}
-
-function changeEditingState (productId){
-	const cartItemContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-
-	if (cartItemContainer.classList.contains('is-editing-quantity')){
-		cartItemContainer.classList.remove('is-editing-quantity');
-	} else {
-		cartItemContainer.classList.add('is-editing-quantity');
-	}
-}
-
-function extractNewQuantity(productId){
-	const newQuantityInput = document.querySelector(`.js-quantity-input-${productId}`);
-	const newQuantity = Number(newQuantityInput.value);
-	newQuantityInput.value = '';
-
-	return newQuantity;
 }
 
 function deliveryOptionsHTML(matchingProduct, cartItem){
