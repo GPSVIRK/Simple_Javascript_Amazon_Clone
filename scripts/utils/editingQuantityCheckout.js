@@ -1,4 +1,5 @@
 import { updateProductQuantity } from "../../data/cart.js";
+import { renderPaymentSummary } from "../checkout/paymentSummary.js";
 
 export function saveNewQuantity(productId){
 	const newQuantity = extractNewQuantity(productId);
@@ -11,6 +12,8 @@ export function saveNewQuantity(productId){
 		.innerText = newQuantity;
 
 	updateProductQuantity(productId, newQuantity);
+
+	renderPaymentSummary();
 }
 
 export function changeEditingState (productId){
