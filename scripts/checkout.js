@@ -7,7 +7,11 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'; /
 
 updateCartQuantity();
 
-renderOrderSummary(); //its better to render the whole page again whenever an update occurs instead of uding the dom to update specific elements
+renderOrderSummary(); /*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
+												in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
+												2- the View, which takes the data and displays it on the page, i.e taking the data and putting it in the html
+												3- the Controller which is all the event listeners, and it makes the page interactive
+												these three elements interact in a loop, the controller updates the model and then causes the view to update and the controller to be interactive again*/
 
 function renderOrderSummary(){
 	let cartSummaryHTML = '';
