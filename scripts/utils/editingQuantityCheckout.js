@@ -1,4 +1,4 @@
-import { updateProductQuantity } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
 import { renderPaymentSummary } from "../checkout/paymentSummary.js";
 
 export function saveNewQuantity(productId){
@@ -11,7 +11,7 @@ export function saveNewQuantity(productId){
 	document.querySelector(`.js-quantity-label-${productId}`)
 		.innerText = newQuantity;
 
-	updateProductQuantity(productId, newQuantity);
+	cart.updateProductQuantity(productId, newQuantity);
 
 	renderPaymentSummary();
 }

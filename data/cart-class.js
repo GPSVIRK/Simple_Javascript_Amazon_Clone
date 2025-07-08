@@ -75,7 +75,7 @@ class Cart { // this is a class definition, its very similar to a function, but 
     }
 }
 
-const cart = new Cart('cart-oop'); // this is creating an instance of the class
+export const cart = new Cart('cart'); // this is creating an instance of the class
 
 
 // you can check if an object is an instance of a class by using [obj-name] instanceof [class-name]

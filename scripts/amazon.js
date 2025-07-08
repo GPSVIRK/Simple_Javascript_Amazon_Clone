@@ -1,4 +1,4 @@
-import { cart, addToCart , calculateCartQuantity } from '../data/cart.js';
+import { cart } from '../data/cart-class.js';
 import { products } from '../data/products.js';
 
 let productsHTML = '';
@@ -102,7 +102,7 @@ function showAddedText(productId){
 
 function updateCartQuantity(){
 	document.querySelector('.js-cart-quantitiy')
-		.innerHTML = calculateCartQuantity();
+		.innerHTML = cart.calculateCartQuantity();
 }
 
 document.querySelectorAll('.js-add-to-cart-button')
@@ -112,7 +112,7 @@ document.querySelectorAll('.js-add-to-cart-button')
 
 			showAddedText(productId);
 
-			addToCart(productId);
+			cart.addToCart(productId);
 
 			updateCartQuantity();
 		})

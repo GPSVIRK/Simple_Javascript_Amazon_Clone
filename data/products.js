@@ -2,7 +2,7 @@ import { formatCurrency } from '../scripts/utils/money.js';
 
 export function findProduct(productId){
   return products.find((productObj) => {return productObj.id === productId;});
-}
+} //this is a function on the whole array
 
 class Products {
   id;

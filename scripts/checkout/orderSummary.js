@@ -1,4 +1,4 @@
-import { cart , removeFromCart , updateDeliveryOptionId } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
 import { findProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js"; 
 import { deliveryOptions , findDeliveryOption } from "../../data/deliverOptions.js";
@@ -16,7 +16,7 @@ these three elements interact in a loop, the controller updates the model and th
 export function renderOrderSummary(){
 	let cartSummaryHTML = '';
 
-	cart.forEach((cartItem) => {
+	cart.cartItems.forEach((cartItem) => {
 		const matchingProduct = findProduct(cartItem.productId);
 
 		//input type radio selector is the bubble which fills, if some have the same name then you can only select one of them, but if two or more all have different names then you can select all of them, thats why we have to change the delivery option number in the name attribute in 
@@ -79,7 +79,7 @@ export function renderOrderSummary(){
 			element.addEventListener('click', () => {
 				const {productId , deliveryOptionId} = element.dataset;
 
-				updateDeliveryOptionId(productId,deliveryOptionId);
+				cart.updateDeliveryOptionId(productId,deliveryOptionId);
 
 				renderOrderSummary();
 
@@ -91,7 +91,7 @@ export function renderOrderSummary(){
 		.forEach((link) => {
 			link.addEventListener('click', () => {
 				const { productId } = link.dataset;
-				removeFromCart(productId);
+				cart.removeFromCart(productId);
 				renderOrderSummary();
 				//container.remove();every element gotten using the dom has this method, it allows us to remove the div or something
 				renderCheckOutHeader();
