@@ -28,6 +28,23 @@ class Products {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML(){//we define it here so when we use it it doesnt break the page
+    return ``;
+  }
+}
+
+class Clothing extends Products{ //it will inherit all the above properties and methods
+  sizeChartLink;
+
+  constructor(productDetails) {
+    super(productDetails); //running the above constructor as well, and then doing what this constructor wants to do
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){ //this is a redefinition, it will override the method of the previous thing, we can use super.[method-name]() to call the above thing as well, but in this case no need
+    return `<a href = "${this.sizeChartLink}" target = "_blank">Size Chart</a>`;
+  }
 }
 
 export const products = [
@@ -705,5 +722,6 @@ export const products = [
     ]
   }
 ].map((productDetails) => {
+  if (productDetails === 'clothing') return new Clothing(productDetails);
   return new Products(productDetails);
 });
