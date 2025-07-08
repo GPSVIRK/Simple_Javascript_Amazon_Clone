@@ -1,20 +1,20 @@
 class Cart { // this is a class definition, its very similar to a function, but no parameters allowed, they have to be properties of the object itself
-    localStorageKey;
-
+    #localStorageKey; //with the hash this turns into a private property, so that it cant be changed by outside the functions in the cart object, it cant be used anywhere except inside the object
+//if a thing doesnt have a hash then it is a public thing
     cartItems  //you have to do it like this otherwise the below code will be run and will give an error every time you try to make a class
 
     constructor(localStorageKey) { // these parameters are recived as arguments to the class 'function' being called during creation
-        this.localStorageKey = localStorageKey;
+        this.#localStorageKey = localStorageKey;
 
-        this.loadFromStorage();
+        this.#loadFromStorage();
     }//this has to be named constructor, and it cannot return anything
 
-    loadFromStorage(){
-        this.cartItems = (JSON.parse(localStorage.getItem(this.localStorageKey)) || []);
+    #loadFromStorage(){
+        this.cartItems = (JSON.parse(localStorage.getItem(this.#localStorageKey)) || []);
     }
 
-    saveToStorage(){
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    #saveToStorage(){
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     findCartItem(productId){
@@ -37,7 +37,7 @@ class Cart { // this is a class definition, its very similar to a function, but 
             });
         }
 
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     removeFromCart (productId){
@@ -45,7 +45,7 @@ class Cart { // this is a class definition, its very similar to a function, but 
 
         this.cartItems = newCart;
 
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     calculateCartQuantity(){
@@ -63,7 +63,7 @@ class Cart { // this is a class definition, its very similar to a function, but 
 
         matchingItem.quantity = newQuantity;
 
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     updateDeliveryOptionId (productId, deliveryOptionId){
@@ -71,7 +71,7 @@ class Cart { // this is a class definition, its very similar to a function, but 
 
         matchingItem.deliveryOptionId = deliveryOptionId;
 
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 }
 
