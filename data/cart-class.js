@@ -1,7 +1,7 @@
 class Cart { // this is a class definition, its very similar to a function, but no parameters allowed, they have to be properties of the object itself
     #localStorageKey; //with the hash this turns into a private property, so that it cant be changed by outside the functions in the cart object, it cant be used anywhere except inside the object
 //if a thing doesnt have a hash then it is a public thing
-    cartItems  //you have to do it like this otherwise the below code will be run and will give an error every time you try to make a class
+    cartItems;  //you have to do it like this otherwise the below code will be run and will give an error every time you try to make a class
 
     constructor(localStorageKey) { // these parameters are recived as arguments to the class 'function' being called during creation
         this.#localStorageKey = localStorageKey;
