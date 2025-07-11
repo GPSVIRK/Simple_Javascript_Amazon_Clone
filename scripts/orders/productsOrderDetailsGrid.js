@@ -1,7 +1,5 @@
 import { findProduct } from "../../data/products.js";
-import { cart } from "../../data/cart-class.js";
 import { dateFormatOrdersPage } from "../utils/dayCalculator.js";
-import { renderOrderHeader } from "./orderheader.js";
 
 export function productsOrderDetails(orderDetails){
 	let orderGridHTML = '';

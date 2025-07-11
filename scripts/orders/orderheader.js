@@ -1,5 +1,5 @@
 import { formatCurrency } from "../utils/money.js";
-import { dateFormatOrdersPage } from "../utils/dayCalculator.js";
+import { dateFormatOrdersPage } from "../utils/dayjsCode.js";
 
 export function renderOrderHeader(orderDetails){
 	const orderHeaderHTML = `

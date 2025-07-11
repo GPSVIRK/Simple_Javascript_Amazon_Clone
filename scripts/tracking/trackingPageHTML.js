@@ -1,6 +1,6 @@
 import { findOrder } from "../../data/orders.js";
 import { findProduct } from "../../data/products.js";
-import { arrivalDateTrackingPage } from "../utils/dayCalculator.js";
+import { arrivalDateTrackingPage } from "../utils/dayjsCode.js";
 
 export function trackingPageHTML(){
 	const url  = new URL(window.location.href);

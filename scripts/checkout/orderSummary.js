@@ -2,7 +2,7 @@ import { cart } from "../../data/cart-class.js";
 import { findProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js"; 
 import { deliveryOptions , findDeliveryOption } from "../../data/deliverOptions.js";
-import { dayCalculator } from "../utils/dayCalculator.js";
+import { dayCalculator } from "../utils/dayjsCode.js";
 import { saveNewQuantity, changeEditingState } from "../utils/editingQuantityCheckout.js";
 import { renderPaymentSummary } from "./paymentSummary.js"; //singe dot means current folder
 import { renderCheckOutHeader } from "./checkoutHeader.js";
