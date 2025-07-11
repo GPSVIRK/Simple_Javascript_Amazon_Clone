@@ -98,6 +98,8 @@ export function renderPaymentSummary(){
 				console.log('unexpected');
 			}
 
+			localStorage.removeItem('cart');
+
 			window.location.href = 'orders.html'; // this will change the file path to that
 		});
 }

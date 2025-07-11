@@ -1,8 +1,12 @@
 import { orders } from "../../data/orders.js";
 import { makeOrderHeader } from "./orderheader.js";
 import { productsOrderDetails } from "./productsOrderDetailsGrid.js";
+import { cart } from "../../data/cart-class.js";
 
 export function renderOrderPage(){
+	document.querySelector('.js-cart-quantity')
+		.innerText = cart.calculateCartQuantity();
+
 	let orderGridHTML = '';
 
 	orders.orderData.forEach((orderDetails) => {
