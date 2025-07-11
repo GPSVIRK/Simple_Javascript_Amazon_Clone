@@ -1,27 +1,27 @@
 class Orders{
-    #localStorageKey;
+	#localStorageKey;
 
-    orderItems;
+	orderData;
 
-    constructor(localStorageKey){
-        this.#localStorageKey = localStorageKey;
+	constructor(localStorageKey){
+		this.#localStorageKey = localStorageKey;
 
-        this.#loadFromStorage();
-    }
+		this.#loadFromStorage();
+	}
 
-    #loadFromStorage(){
-        this.orderItems = (JSON.parse(localStorage.getItem(this.#localStorageKey)) || []);
-    }
+	#loadFromStorage(){
+		this.orderData = (JSON.parse(localStorage.getItem(this.#localStorageKey)) || []);
+	}
 
-    #saveToStorage(){
-        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.orderItems));
-    }
+	#saveToStorage(){
+		localStorage.setItem(this.#localStorageKey, JSON.stringify(this.orderData));
+	}
 
-    addOrder(order){
-        this.orderItems.unshift(order);
+	addOrder(order){
+		this.orderData.unshift(order);
 
-        this.#saveToStorage();
-    }
+		this.#saveToStorage();
+	}
 }
 
 export const orders = new Orders('orders');

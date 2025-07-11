@@ -22,3 +22,11 @@ export function dayCalculator(deliveryOption){
 
 	return dateString;
 }
+
+export function dateFormatOrdersPage(dateTime){
+	const dayjsDateTime = dayjs(dateTime);
+
+	const dateString = dayjsDateTime.format('MMMM D');
+	
+	return dateString;
+}
