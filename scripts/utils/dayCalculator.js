@@ -30,3 +30,13 @@ export function dateFormatOrdersPage(dateTime){
 	
 	return dateString;
 }
+
+export function arrivalDateTrackingPage(orderProducts,productId){
+	const orderedProductDetails = orderProducts.find((orderedProductObj) => orderedProductObj.productId === productId);
+
+	const arrivalTime = dayjs(orderedProductDetails.estimatedDeliveryTime);
+
+	const dateString = arrivalTime.format('dddd, MMMM D');
+
+	return dateString;
+}

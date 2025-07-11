@@ -25,3 +25,19 @@ class Orders{
 }
 
 export const orders = new Orders('orders');
+
+export function findOrder(orderId){
+	return orders.orderData.find((orderObj) => orderObj.id === orderId);
+}
+
+/*orders = [{
+	id:
+	orderTime:
+	totalCostCents:
+	products: [{
+		productId:
+		quantity:
+		estimatedDeliveryTime:
+	}]
+}]
+*/
