@@ -1,5 +1,6 @@
 import { cart } from '../data/cart-class.js';
 import { products, loadProductsFetch } from '../data/products.js';
+import { showAddedText } from './utils/addedTextState.js';
 
 loadProductsFetch().then(renderHomePage);
 
@@ -69,52 +70,14 @@ function renderHomePage(){
 	document.querySelector('.js-products-grid')
 		.innerHTML = productsHTML;
 
-
-	const addedButtonStateMap = new Map();
-
-	function showAddedText(productId){
-
-		const addedElem = document.querySelector(`.js-added-${productId}`);
-
-		addedElem.classList.add('added-text-appear');
-
-		const addedTextState = addedButtonStateMap.get(productId) || {
-			isAddedTextAppear: false,
-			timeoutId: null
-		}
-
-		if(!addedTextState.isAddedTextAppear){
-
-			addedTextState.timeoutId = setTimeout(() => {
-										addedElem.classList.remove('added-text-appear');
-										isAddedTextAppear = false;
-									}, 2000);
-
-			addedTextState.isAddedTextAppear = true;
-		} else {
-
-			clearTimeout(addedTextState.timeoutId);
-
-			addedTextState.timeoutId = setTimeout(() => {
-										addedElem.classList.remove('added-text-appear');
-										isAddedTextAppear = false;
-									}, 2000);
-		}
-
-		addedButtonStateMap.set(productId, addedTextState);
-	}
-
-	function updateCartQuantity(){
-		document.querySelector('.js-cart-quantitiy')
-			.innerHTML = cart.calculateCartQuantity();
-	}
-
 	document.querySelectorAll('.js-add-to-cart-button')
 		.forEach((buttonElement) => {
 			buttonElement.addEventListener('click', () => {
 				const { productId } = buttonElement.dataset;
 
-				showAddedText(productId);
+				const addedElem = document.querySelector(`.js-added-${productId}`)
+
+				showAddedText(productId,addedElem,addAddedText,removeAddedText);
 
 				cart.addToCart(productId);
 
@@ -122,5 +85,18 @@ function renderHomePage(){
 			})
 		});
 
+}
+
+function addAddedText(addedElem){
+	addedElem.classList.add('added-text-appear');
+}
+
+function removeAddedText(addedElem){
+	addedElem.classList.remove('added-text-appear');
+}
+
+function updateCartQuantity(){
+	document.querySelector('.js-cart-quantitiy')
+		.innerHTML = cart.calculateCartQuantity();
 }
 

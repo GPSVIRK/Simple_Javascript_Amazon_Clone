@@ -24,7 +24,9 @@ class Cart { // this is a class definition, its very similar to a function, but 
     addToCart(productId){
         const matchingItem = this.findCartItem(productId);
 
-        const quantity = Number(document.querySelector(`.js-quantitiy-selector-${productId}`).value);
+        const quantitiySelectorElem = document.querySelector(`.js-quantitiy-selector-${productId}`);
+
+        const quantity =( (quantitiySelectorElem) ? (Number(quantitiySelectorElem.value)) : (1));
 
         if(matchingItem) {
             matchingItem.quantity += quantity;

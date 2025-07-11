@@ -1,7 +1,7 @@
 import { formatCurrency } from "../utils/money.js";
 import { dateFormatOrdersPage } from "../utils/dayCalculator.js";
 
-export function makeOrderHeader(orderDetails){
+export function renderOrderHeader(orderDetails){
 	const orderHeaderHTML = `
 		<div class="order-header">
 			<div class="order-header-left-section">
