@@ -40,3 +40,19 @@ export function arrivalDateTrackingPage(orderProducts,productId){
 
 	return dateString;
 }
+
+export function percentageOfTimeLeft(orderDate, arrivalDate){
+	const dayjsOrderDate = dayjs(orderDate);
+	const dayjsArrivalDate = dayjs(arrivalDate);
+	const today = dayjs();
+
+	const remainingArrivalDays = dayjsArrivalDate.diff(today,'day',true);
+	if (remainingArrivalDays < 0){
+		return null;
+	}
+	const totalArrivalDays =  dayjsArrivalDate.diff(dayjsOrderDate,'day',true);
+
+	const percentage = round(((totalArrivalDays - remainingArrivalDays)/totalArrivalDays)*10000)/10000;
+
+	return percentage;
+}

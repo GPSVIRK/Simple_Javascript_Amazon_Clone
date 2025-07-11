@@ -1,5 +1,6 @@
 import { loadProductsFetch } from "../data/products.js";
 import { trackingPageHTML } from "./tracking/trackingPageHTML.js";
+import { cart } from "../data/cart-class.js";
 
 async function loadPage() {
     try{
@@ -9,6 +10,7 @@ async function loadPage() {
         console.log('unexpected error try later');
     }
 
+    document.querySelector('.js-cart-quantity').innerText = cart.calculateCartQuantity();
     trackingPageHTML();
 }
 
