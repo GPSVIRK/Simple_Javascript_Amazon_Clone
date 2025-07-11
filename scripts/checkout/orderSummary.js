@@ -6,6 +6,7 @@ import { dayCalculator } from "../utils/dayCalculator.js";
 import { saveNewQuantity, changeEditingState } from "../utils/editingQuantityCheckout.js";
 import { renderPaymentSummary } from "./paymentSummary.js"; //singe dot means current folder
 import { renderCheckOutHeader } from "./checkoutHeader.js";
+import { renderCheckoutPageIFCART } from "./emptyCart.js";
 
 /*its better to render the whole page again whenever an update occurs instead of using the dom to update specific elements, this process is called  MVC=Model View Controller
 in MVC we split our code into 3 parts, the Model which saves and manages the data, all the code in the data folder
@@ -92,11 +93,9 @@ export function renderOrderSummary(){
 			link.addEventListener('click', () => {
 				const { productId } = link.dataset;
 				cart.removeFromCart(productId);
-				renderOrderSummary();
+				
 				//container.remove();every element gotten using the dom has this method, it allows us to remove the div or something
-				renderCheckOutHeader();
-
-				renderPaymentSummary();
+				renderCheckoutPageIFCART();
 			});
 		});
 
@@ -117,6 +116,7 @@ export function renderOrderSummary(){
 				const {productId} = link.dataset;
 				changeEditingState(productId);
 				saveNewQuantity(productId);
+				renderPaymentSummary();
 				renderCheckOutHeader();
 
 			});
@@ -130,6 +130,7 @@ export function renderOrderSummary(){
 					const {productId} = inputBox.dataset;
 					changeEditingState(productId);
 					saveNewQuantity(productId);
+					renderPaymentSummary();
 					renderCheckOutHeader();
 				}
 

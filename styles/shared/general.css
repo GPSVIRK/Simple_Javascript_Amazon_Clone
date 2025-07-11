@@ -44,6 +44,11 @@ input, select, button {
   box-shadow: none;
 }
 
+.button-primary:disabled{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .button-secondary {
   color: rgb(33, 33, 33);
   background: white;

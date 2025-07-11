@@ -228,3 +228,9 @@
 .is-editing-quantity .quantity-label{
   display: none;
 }
+
+.view-products{
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-size: 16px;
+}

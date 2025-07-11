@@ -1,26 +1,14 @@
-import { renderOrderSummary } from "./checkout/orderSummary.js";
-import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { renderCheckOutHeader } from "./checkout/checkoutHeader.js";
 import { loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { renderCheckoutPageIFCART } from "./checkout/emptyCart.js";
 
 async function loadPage(){// this is a shorthand way to return a promise, returning inside this function is like keeping a value inside the resolve thing, we use this cuz of the await feature, but we can only use await inside an async function
 	try {
 		await loadProductsFetch();
-
-		await new Promise((resolve) => {
-			loadCart(() => {
-				resolve();
-			});
-		});
 	} catch(error) {
 		console.log('unexpected error: please try again');
 	}
-  
-
-	renderCheckOutHeader();
-	renderOrderSummary();
-	renderPaymentSummary();
+  	
+	renderCheckoutPageIFCART();
 }
 
 loadPage();
